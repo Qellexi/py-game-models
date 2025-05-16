@@ -13,8 +13,7 @@ def main() -> None:
                 email=player_data["email"],
                 bio=player_data.get("bio", ""),
                 race=Race.objects.get(name=player_data["race"]),
-                guild=Guild.objects.get(name=player_data.get("guild", "Default Guild")),
-                created_at=timezone.now()
+                guild=Guild.objects.get(name=player_data.get("guild", "Default Guild"))
             )
 
 
