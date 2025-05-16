@@ -7,9 +7,15 @@ from db.models import Race, Skill, Player, Guild
 def main() -> None:
     with open('players.json', 'r') as file:
         data = json.load(file)
-        guild = Guild.objects.create(name="Default Guild")
-        race = Race.objects.create(name="Human")
-        skill = Skill.objects.create(name="Basic Attack", bonus="+5", race=race)
+        for player_data in data:
+            Player.objects.create(
+                nickname=player_data["nickname"],
+                email=player_data["email"],
+                bio=player_data.get("bio", ""),
+                race=Race.objects.get(name=player_data["race"]),
+                guild=Guild.objects.get(name=player_data.get("guild", "Default Guild")),
+                created_at=timezone.now()
+            )
 
 
 if __name__ == "__main__":
